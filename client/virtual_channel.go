@@ -82,7 +82,7 @@ const (
 	virtualFundingTimeout    = 10 * time.Second // How long we wait for a matching funding proposal.
 	virtualSettlementTimeout = 10 * time.Second // How long we wait for a matching settlement proposal.
 )
-
+// virtual channel funding
 func (c *Client) handleVirtualChannelFundingProposal(
 	ch *Channel,
 	prop *VirtualChannelFundingProposalMsg,
