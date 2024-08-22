@@ -83,7 +83,7 @@ func newStateWatcher(c func(ctx context.Context, a, b interface{}) bool) *stateW
 // condition function is evaluated at most once.
 func (w *stateWatcher) Await(
 	ctx context.Context,
-	state interface{},
+	state interface{}, // in case of virtual channel funding, state is a VirtualChannelProposal
 ) (err error) {
 	match := make(chan struct{}, 1)
 	w.register(ctx, state, match)
@@ -105,8 +105,8 @@ func (w *stateWatcher) register(
 	defer w.Unlock()
 
 	for k, e := range w.entries {
-		if w.condition(ctx, state, e.state) {
-			done <- struct{}{}
+		if w.condition(ctx, state, e.state) { // condition here is matchFundingProposal(...). Assuming Ingrid is the intermediary, then this is called on Ingrid's side and the method is passed the VirtualChannelProposal from as `state`. If bob is the second party then e.State should be Bob's VC proposal but I don't konw how does Bob's VC proposal land in e.entries
+			done <- struct{}{} //send message to channel 'match' to signal a match was found
 			e.done <- struct{}{}
 			delete(w.entries, k)
 			return
@@ -122,5 +122,5 @@ func (w *stateWatcher) deregister(
 	w.Lock()
 	defer w.Unlock()
 
-	delete(w.entries, state)
+	delete(w.entries, state) //dunno why we delete it again. Maybe just to be sure
 }
