@@ -4,6 +4,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.13.0] Metis - 2025-01-19 [:boom:]
+Support for multiple backends, allowing multiple address implementations per client. This enables the simultaneous use of several smaller backends, enhancing modularization.
+
+## Added :boom:
+
+* Backend field in Allocation [#410]
+
+* Added interface restrictions to ensure cross-contract compatibility, including new functions and fields in interfaces such as Asset and Address [#410]
+
+## Changed
+
+* Updade action cache [#409]
+
+* Update workflow go version to 1.18 [#410]
+
+* Global Backend map in wire and wallet module [#410]
+
+* Global Randomizer map in wallet and channel tests [#410]
+
+* Participant map to allow multiple addresses per participant [#410] :boom:
+
+* Code refactoring from channel ID map to singular channel ID [#413]
+
+[#409]: https://github.com/hyperledger-labs/go-perun/pull/409
+[#410]: https://github.com/hyperledger-labs/go-perun/pull/410
+[#413]: https://github.com/hyperledger-labs/go-perun/pull/413
+
+## Legend
+- <span id="breaking">:boom:</span> This is a breaking change, e.g., it changes the external API.
+
+[:boom:]: #breaking
+
+## [0.12.0] Leda - 2024-11-19 [:boom:]
+Flexibility in funding for payment channels and basic Layer-2 security.
+
+## Added :boom:
+
+* Egoistic funding allows users to wait for their peers to fund before they fund themselves. This change has to be adopted by the Perun backends to be usable ([in case of Ethereum](https://github.com/hyperledger-labs/perun-eth-backend/pull/45)): [#397 ]
+
+* Wire authentication for Layer2 communication between Perun clients, using TLS: [#402] :boom:
+
+* Support for Stellar backend in README: [#408]
+
+## Changed
+* Update go to 1.22: [#406 ]
+
+[#397]: https://github.com/hyperledger-labs/go-perun/pull/397
+[#406]: https://github.com/hyperledger-labs/go-perun/pull/406
+[#402]: https://github.com/hyperledger-labs/go-perun/pull/402
+[#408]: https://github.com/hyperledger-labs/go-perun/pull/408
+
+## Legend
+- <span id="breaking">:boom:</span> This is a breaking change, e.g., it changes the external API.
+
+[:boom:]: #breaking
+
 ## [0.11.0] Kiviuq - 2024-02-21 [:boom:]
 Exposure of protobuf converters & `SignedState`, abstraction of tests and bug fixes.
 
